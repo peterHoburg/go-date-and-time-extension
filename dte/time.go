@@ -10,6 +10,13 @@ var ErrTimeParse = errors.New("time does not follow 15:04:05 time only format")
 
 const TimeOnlyWithTimezone = "15:04:05Z07:00"
 const TimeOnlyWithTimezoneWithSpace = "15:04:05 Z07:00"
+const TimeOnlyWithTimezoneShort = "15:04:05Z07"
+
+var acceptableFormats = []string{
+	TimeOnlyWithTimezone,
+	TimeOnlyWithTimezoneWithSpace,
+	TimeOnlyWithTimezoneShort,
+}
 
 type Time struct {
 	time.Time
@@ -26,12 +33,17 @@ func NewTime(s string) (Time, error) {
 }
 
 func (t *Time) SetFromString(s string) error {
-	parsedTime, err := time.Parse(TimeOnlyWithTimezone, s)
-	if err != nil {
-		parsedTime, err = time.Parse(TimeOnlyWithTimezoneWithSpace, s)
-		if err != nil {
-			return fmt.Errorf("%w: %w", ErrTimeParse, err)
+
+	var err error
+	parsedTime := time.Time{}
+
+	for _, layout := range acceptableFormats {
+		if parsedTime, err = time.Parse(layout, s); err == nil {
+			break
 		}
+	}
+	if err != nil {
+		return fmt.Errorf("%w: %w", ErrTimeParse, err)
 	}
 
 	parsedTime = parsedTime.UTC()
