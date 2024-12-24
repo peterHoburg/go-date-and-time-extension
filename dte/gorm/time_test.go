@@ -18,7 +18,6 @@ type User struct {
 	OnlyTime dtegorm.Time
 }
 
-//nolint:funlen
 func Open(dsn string, db *gorm.DB) *gorm.DB {
 	if db != nil {
 		openDB, err := db.DB()
@@ -63,20 +62,6 @@ func Open(dsn string, db *gorm.DB) *gorm.DB {
 	db = localDB.Debug()
 	return db
 
-}
-
-func Close(db *gorm.DB) {
-	openDB, err := db.DB()
-	if err != nil {
-		log.Fatal("Error getting DB")
-	}
-
-	err = openDB.Close()
-	if err != nil {
-		log.Fatal("Error closing DB")
-	}
-
-	db = nil
 }
 
 func CreateDB(dbName string, db *gorm.DB) {
@@ -126,4 +111,36 @@ func TestTimeGorm(t *testing.T) {
 	dbName, dsn, db := Setup()
 	dsn = strings.ReplaceAll(dsn, "dbname="+dbName, "dbname=postgres")
 	defer Teardown(dbName, dsn, db)
+
+	type Result struct {
+		ColumnName string
+		DataType   string
+	}
+	result := Result{}
+
+	db.Raw("SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'users' AND column_name = 'only_time'").Scan(&result)
+	if result.ColumnName != "only_time" && result.DataType != "time with time zone" {
+		t.Errorf("Column name or data type is not correct")
+	}
+
+	onlyTime, err := dtegorm.NewTime("10:04:05-05:00")
+	if err != nil {
+		t.Errorf("Error creating time")
+	}
+
+	user := User{OnlyTime: onlyTime}
+	dbResult := db.Create(&user)
+	if dbResult.Error != nil {
+		t.Errorf("Error creating user")
+	}
+	var userResult User
+
+	dbResult = db.First(&userResult, user.ID)
+	if dbResult.Error != nil {
+		t.Errorf("Error getting user")
+	}
+
+	if userResult.OnlyTime.String() != "15:04:05Z" {
+		t.Errorf("Time is not correct")
+	}
 }

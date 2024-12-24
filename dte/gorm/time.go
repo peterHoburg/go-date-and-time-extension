@@ -15,6 +15,16 @@ type Time struct {
 	dte.Time
 }
 
+func NewTime(s string) (Time, error) {
+	timeInstance := Time{}
+
+	err := timeInstance.SetFromString(s)
+	if err != nil {
+		return Time{}, err
+	}
+	return timeInstance, nil
+}
+
 // GormDataType returns gorm common data type. This type is used for the field's column type.
 func (Time) GormDataType() string {
 	return "time"
@@ -26,7 +36,7 @@ func (Time) GormDBDataType(db *gorm.DB, field *schema.Field) string {
 	case "mysql":
 		return "TIME"
 	case "postgres":
-		return "TIME"
+		return "TIME with time zone"
 	case "sqlserver":
 		return "TIME"
 	case "sqlite":
