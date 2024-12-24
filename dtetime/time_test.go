@@ -13,22 +13,9 @@ func ExampleParse() {
 	if err != nil {
 		return
 	}
+	fmt.Println(dteTime)
 
-	marshaled, err := json.Marshal(dteTime)
-	if err != nil {
-		return
-	}
-	fmt.Println(string(marshaled))
-
-	unmarshalled := dtetime.Time{}
-	err = json.Unmarshal(marshaled, &unmarshalled)
-	if err != nil {
-		return
-	}
-	fmt.Println(unmarshalled)
-
-	// Output: "15:04:05Z"
-	// 15:04:05Z
+	// Output: 15:04:05Z
 }
 
 func ExampleTime_json_to_struct() {
@@ -45,7 +32,7 @@ func ExampleTime_json_to_struct() {
 	// Output: 15:04:05Z
 }
 
-func ExampleTime_json_from_struct() {
+func ExampleTime_struct_to_json() {
 	type TestStruct struct {
 		Time dtetime.Time `json:"time"`
 	}
@@ -56,6 +43,7 @@ func ExampleTime_json_from_struct() {
 	if err != nil {
 		return
 	}
+
 	testStruct.Time = parsed
 	marshaled, err := json.Marshal(testStruct)
 
@@ -101,21 +89,21 @@ func TestParse(t *testing.T) {
 			wantError: true,
 		},
 		{
-			name:      "valid time",
+			name:      "valid time zulu",
 			inputTime: "15:04:05Z",
 			want:      `"15:04:05Z"`,
 			wantError: false,
 		},
 		{
-			name:      "valid time",
-			inputTime: "15:04:05-05:00",
-			want:      `"20:04:05Z"`,
+			name:      "valid time -5",
+			inputTime: "10:04:05-05:00",
+			want:      `"15:04:05Z"`,
 			wantError: false,
 		},
 		{
-			name:      "valid time",
-			inputTime: "15:04:05+05:00",
-			want:      `"10:04:05Z"`,
+			name:      "valid time +5",
+			inputTime: "20:04:05+05:00",
+			want:      `"15:04:05Z"`,
 			wantError: false,
 		},
 		{
@@ -131,7 +119,7 @@ func TestParse(t *testing.T) {
 			t.Parallel()
 
 			parsed, err := dtetime.Parse(tt.inputTime)
-			if (err != nil) == tt.wantError {
+			if (err != nil) && true == tt.wantError {
 				return
 			}
 			if err != nil {
