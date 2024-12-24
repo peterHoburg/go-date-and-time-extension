@@ -4,59 +4,102 @@ import (
 	"encoding/json"
 	"fmt"
 	"testing"
-	"time"
 
 	"github.com/peterHoburg/go-date-and-time-extension/dtetime"
 )
 
-func ExampleDate() {
-	dteTime, err := dtetime.Parse("15:04:05")
+func ExampleTime_MarshalJSON() {
+	dteTime, err := dtetime.Parse("15:04:05Z")
 	if err != nil {
-		panic(">" + err.Error() + "<")
+		return
 	}
 
 	marshaled, err := json.Marshal(dteTime)
 	if err != nil {
-		panic(">" + err.Error() + "<")
+		return
 	}
 	fmt.Println(string(marshaled))
 
 	unmarshalled := dtetime.Time{}
 	err = json.Unmarshal(marshaled, &unmarshalled)
 	if err != nil {
-		panic(">" + err.Error() + "<")
+		return
 	}
 	fmt.Println(unmarshalled)
 
-	// Output: "15:04:05"
-	// 15:04:05
+	// Output: "15:04:05Z"
+	// 15:04:05Z
 }
 
-func TestMarshalJSON(t *testing.T) {
+func ExampleTime_JSONToStruct() {
+	type TestStruct struct {
+		Time dtetime.Time `json:"time"`
+	}
+	testStruct := TestStruct{}
+	err := json.Unmarshal([]byte(`{"time":"15:04:05Z"}`), &testStruct)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(testStruct.Time)
+
+	// Output: 15:04:05Z
+}
+
+func TestParse(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
 		name      string
-		inputTime dtetime.Time
+		inputTime string
 		want      string
 		wantError bool
 	}{
 		{
+			name:      "invalid time no TZ",
+			inputTime: "15:04:05",
+			want:      ``,
+			wantError: true,
+		},
+		{
+			name:      "invalid time bad TZ",
+			inputTime: "15:04:05-55:00:00",
+			want:      ``,
+			wantError: true,
+		},
+		{
+			name:      "invalid time zulu and TZ",
+			inputTime: "15:04:05Z-05:00:00",
+			want:      ``,
+			wantError: true,
+		},
+		{
+			name:      "invalid time zulu and TZ no -",
+			inputTime: "15:04:05Z05:00:00",
+			want:      ``,
+			wantError: true,
+		},
+		{
 			name:      "valid time",
-			inputTime: func() dtetime.Time { dteTime, _ := dtetime.Parse("15:04:05"); return dteTime }(),
-			want:      `"15:04:05"`,
+			inputTime: "15:04:05Z",
+			want:      `"15:04:05Z"`,
+			wantError: false,
+		},
+		{
+			name:      "valid time",
+			inputTime: "15:04:05-05:00",
+			want:      `"20:04:05Z"`,
+			wantError: false,
+		},
+		{
+			name:      "valid time",
+			inputTime: "15:04:05+05:00",
+			want:      `"10:04:05Z"`,
 			wantError: false,
 		},
 		{
 			name:      "zero time",
-			inputTime: dtetime.Time{},
-			want:      `"00:00:00"`,
-			wantError: false,
-		},
-		{
-			name:      "invalid time format (manually created object)",
-			inputTime: dtetime.Time{Time: time.Date(0, 0, 0, -1, 0, 0, 0, time.UTC)},
-			want:      `"23:00:00"`,
+			inputTime: "00:00:00Z",
+			want:      `"00:00:00Z"`,
 			wantError: false,
 		},
 	}
@@ -65,8 +108,16 @@ func TestMarshalJSON(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got, err := json.Marshal(tt.inputTime)
-			if (err != nil) != tt.wantError {
+			parsed, err := dtetime.Parse(tt.inputTime)
+			if (err != nil) == tt.wantError {
+				return
+			}
+			if err != nil {
+				t.Errorf("Parse() error = %v, wantError %v", err, tt.wantError)
+				return
+			}
+			got, err := json.Marshal(parsed)
+			if err != nil {
 				t.Errorf("MarshalJSON() error = %v, wantError %v", err, tt.wantError)
 				return
 			}
