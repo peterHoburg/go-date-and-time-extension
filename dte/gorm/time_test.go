@@ -1,6 +1,7 @@
 package dtegorm_test
 
 import (
+	"fmt"
 	"log"
 	"strings"
 	"testing"
@@ -13,7 +14,7 @@ import (
 	"dtegorm"
 )
 
-type User struct {
+type Example struct {
 	ID       uint `gorm:"primarykey"`
 	OnlyTime dtegorm.Time
 }
@@ -79,7 +80,7 @@ func DeleteDB(dbName string, db *gorm.DB) {
 }
 
 func RunMigrations(db *gorm.DB) {
-	err := db.AutoMigrate(&User{})
+	err := db.AutoMigrate(&Example{})
 	if err != nil {
 		log.Fatal("Error migrating database")
 	}
@@ -107,7 +108,41 @@ func Teardown(dbName string, dsn string, db *gorm.DB) {
 	DeleteDB(dbName, db)
 }
 
-func TestTimeGorm(t *testing.T) {
+func ExampleTimeGORM() {
+	dbName, dsn, db := Setup()
+	dsn = strings.ReplaceAll(dsn, "dbname="+dbName, "dbname=postgres")
+	defer Teardown(dbName, dsn, db)
+	// ^^^ Setup for the PG DB. This can be ignored
+
+	type Example struct {
+		ID       uint `gorm:"primarykey"`
+		OnlyTime dtegorm.Time
+	}
+
+	onlyTime, err := dtegorm.NewTime("10:04:05-05:00")
+	if err != nil {
+		return
+	}
+
+	example := Example{OnlyTime: onlyTime}
+
+	createResult := db.Create(&example)
+	if createResult.Error != nil {
+		return
+	}
+
+	var exampleResult Example
+
+	getResult := db.First(&exampleResult, example.ID)
+	if getResult.Error != nil {
+		return
+	}
+	fmt.Println(exampleResult.OnlyTime.String())
+
+	// Output: 15:04:05Z
+}
+
+func TestTimeGORM(t *testing.T) {
 	dbName, dsn, db := Setup()
 	dsn = strings.ReplaceAll(dsn, "dbname="+dbName, "dbname=postgres")
 	defer Teardown(dbName, dsn, db)
@@ -118,7 +153,7 @@ func TestTimeGorm(t *testing.T) {
 	}
 	result := Result{}
 
-	db.Raw("SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'users' AND column_name = 'only_time'").Scan(&result)
+	db.Raw("SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'examples' AND column_name = 'only_time'").Scan(&result)
 	if result.ColumnName != "only_time" && result.DataType != "time with time zone" {
 		t.Errorf("Column name or data type is not correct")
 	}
@@ -128,19 +163,19 @@ func TestTimeGorm(t *testing.T) {
 		t.Errorf("Error creating time")
 	}
 
-	user := User{OnlyTime: onlyTime}
-	dbResult := db.Create(&user)
+	example := Example{OnlyTime: onlyTime}
+	dbResult := db.Create(&example)
 	if dbResult.Error != nil {
-		t.Errorf("Error creating user")
+		t.Errorf("Error creating example")
 	}
-	var userResult User
+	var exampleResult Example
 
-	dbResult = db.First(&userResult, user.ID)
+	dbResult = db.First(&exampleResult, example.ID)
 	if dbResult.Error != nil {
 		t.Errorf("Error getting user")
 	}
 
-	if userResult.OnlyTime.String() != "15:04:05Z" {
+	if exampleResult.OnlyTime.String() != "15:04:05Z" {
 		t.Errorf("Time is not correct")
 	}
 }
