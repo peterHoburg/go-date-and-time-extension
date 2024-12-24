@@ -28,16 +28,6 @@ func (t Time) String() string {
 	return t.Format(TimeOnlyWithTimezone)
 }
 
-func (t Time) UnmarshalText(text []byte) error {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (t Time) MarshalText() (text []byte, err error) {
-	//TODO implement me
-	panic("implement me")
-}
-
 // MarshalJSON implements the [json.Marshaler] interface.
 // The time is a quoted string in the hh:mm:ss format
 func (t Time) MarshalJSON() ([]byte, error) {

@@ -8,7 +8,7 @@ import (
 	"github.com/peterHoburg/go-date-and-time-extension/dtetime"
 )
 
-func ExampleTime_MarshalJSON() {
+func ExampleParse() {
 	dteTime, err := dtetime.Parse("15:04:05Z")
 	if err != nil {
 		return
@@ -31,18 +31,40 @@ func ExampleTime_MarshalJSON() {
 	// 15:04:05Z
 }
 
-func ExampleTime_JSONToStruct() {
+func ExampleTime_json_to_struct() {
 	type TestStruct struct {
 		Time dtetime.Time `json:"time"`
 	}
 	testStruct := TestStruct{}
 	err := json.Unmarshal([]byte(`{"time":"15:04:05Z"}`), &testStruct)
 	if err != nil {
-		panic(err)
+		return
 	}
 	fmt.Println(testStruct.Time)
 
 	// Output: 15:04:05Z
+}
+
+func ExampleTime_json_from_struct() {
+	type TestStruct struct {
+		Time dtetime.Time `json:"time"`
+	}
+
+	testStruct := TestStruct{}
+
+	parsed, err := dtetime.Parse("15:04:05Z")
+	if err != nil {
+		return
+	}
+	testStruct.Time = parsed
+	marshaled, err := json.Marshal(testStruct)
+
+	if err != nil {
+		return
+	}
+	fmt.Println(string(marshaled))
+
+	// Output: {"time":"15:04:05Z"}
 }
 
 func TestParse(t *testing.T) {
