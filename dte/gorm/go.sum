@@ -15,10 +15,6 @@ github.com/jinzhu/inflection v1.0.0 h1:K317FqzuhWc8YvSVlFMCCUb36O/S9MCKRDI7QkRKD
 github.com/jinzhu/inflection v1.0.0/go.mod h1:h+uFLlag+Qp1Va5pdKtLDYj+kHp5pxUVkryuEj+Srlc=
 github.com/jinzhu/now v1.1.5 h1:/o9tlHleP7gOFmsnYNz3RGnqzefHA47wQpKrrdTIwXQ=
 github.com/jinzhu/now v1.1.5/go.mod h1:d3SSVoowX0Lcu0IBviAWJpolVfI5UJVZZ7cO71lE/z8=
-github.com/peterHoburg/go-date-and-time-extension v0.0.1 h1:XaWsR63mQiiBXgj1B1FD6g6oTEEdCfhKfN4MvKiXDIo=
-github.com/peterHoburg/go-date-and-time-extension v0.0.1/go.mod h1:0GwBx6o8Tmaj+9lvnP6CH66HLR37xnHr/vEoC3MRd3I=
-github.com/peterHoburg/go-date-and-time-extension v0.0.2 h1:WoD6W7+moBx/RPxJMGdt6Gzo70shTJKn0DC8KuRcKv0=
-github.com/peterHoburg/go-date-and-time-extension v0.0.2/go.mod h1:0GwBx6o8Tmaj+9lvnP6CH66HLR37xnHr/vEoC3MRd3I=
 github.com/peterHoburg/go-date-and-time-extension v0.0.3 h1:fCGYhvUIV65Vta3fGbuk4q2J/8vJ3VGThPLkEE3x1Nk=
 github.com/peterHoburg/go-date-and-time-extension v0.0.3/go.mod h1:0GwBx6o8Tmaj+9lvnP6CH66HLR37xnHr/vEoC3MRd3I=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
@@ -28,8 +24,8 @@ github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UV
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.8.1 h1:w7B6lhMri9wdJUVmEZPGGhZzrYTPvgJArz7wNPgYKsk=
 github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
-golang.org/x/crypto v0.17.0 h1:r8bRNjWL3GshPW3gkd+RpvzWrZAwPS49OmTGZ/uhM4k=
-golang.org/x/crypto v0.17.0/go.mod h1:gCAAfMLgwOJRpTjQ2zCCt2OcSfYMTeZVSRtQlPC7Nq4=
+golang.org/x/crypto v0.31.0 h1:ihbySMvVjLAeSH1IbfcRTkD/iNscyz8rGzjF/E5hV6U=
+golang.org/x/crypto v0.31.0/go.mod h1:kDsLvtWBEx7MV9tJOj9bnXsPbxwJQ6csT/x4KIN4Ssk=
 golang.org/x/sync v0.10.0 h1:3NQrjDixjgGwUOCaF8w2+VYHv0Ve/vGYSbdkTa98gmQ=
 golang.org/x/sync v0.10.0/go.mod h1:Czt+wKu1gCyEFDUtn0jG5QVvpJ6rzVqr5aXyt9drQfk=
 golang.org/x/text v0.21.0 h1:zyQAAkrwaneQ066sspRyJaG9VNi/YJ1NfzcGB3hZ/qo=
