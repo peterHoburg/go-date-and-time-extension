@@ -15,10 +15,6 @@ github.com/jinzhu/inflection v1.0.0 h1:K317FqzuhWc8YvSVlFMCCUb36O/S9MCKRDI7QkRKD
 github.com/jinzhu/inflection v1.0.0/go.mod h1:h+uFLlag+Qp1Va5pdKtLDYj+kHp5pxUVkryuEj+Srlc=
 github.com/jinzhu/now v1.1.5 h1:/o9tlHleP7gOFmsnYNz3RGnqzefHA47wQpKrrdTIwXQ=
 github.com/jinzhu/now v1.1.5/go.mod h1:d3SSVoowX0Lcu0IBviAWJpolVfI5UJVZZ7cO71lE/z8=
-github.com/peterHoburg/go-date-and-time-extension v0.0.1 h1:XaWsR63mQiiBXgj1B1FD6g6oTEEdCfhKfN4MvKiXDIo=
-github.com/peterHoburg/go-date-and-time-extension v0.0.1/go.mod h1:0GwBx6o8Tmaj+9lvnP6CH66HLR37xnHr/vEoC3MRd3I=
-github.com/peterHoburg/go-date-and-time-extension v0.0.2 h1:WoD6W7+moBx/RPxJMGdt6Gzo70shTJKn0DC8KuRcKv0=
-github.com/peterHoburg/go-date-and-time-extension v0.0.2/go.mod h1:0GwBx6o8Tmaj+9lvnP6CH66HLR37xnHr/vEoC3MRd3I=
 github.com/peterHoburg/go-date-and-time-extension v0.0.3 h1:fCGYhvUIV65Vta3fGbuk4q2J/8vJ3VGThPLkEE3x1Nk=
 github.com/peterHoburg/go-date-and-time-extension v0.0.3/go.mod h1:0GwBx6o8Tmaj+9lvnP6CH66HLR37xnHr/vEoC3MRd3I=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
