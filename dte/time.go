@@ -1,4 +1,4 @@
-package dtetime // Package dtetime import github.com/peterHoburg/go-date-and-time-extension/dtetime
+package dte // Package dte import github.com/peterHoburg/go-date-and-time-extension/dte
 
 import (
 	"errors"

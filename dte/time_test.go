@@ -1,15 +1,15 @@
-package dtetime_test
+package dte_test
 
 import (
 	"encoding/json"
 	"fmt"
 	"testing"
 
-	"github.com/peterHoburg/go-date-and-time-extension/dtetime"
+	"github.com/peterHoburg/go-date-and-time-extension/dte"
 )
 
 func ExampleParse() {
-	dteTime, err := dtetime.Parse("15:04:05Z")
+	dteTime, err := dte.Parse("15:04:05Z")
 	if err != nil {
 		return
 	}
@@ -20,7 +20,7 @@ func ExampleParse() {
 
 func ExampleTime_json_to_struct() {
 	type TestStruct struct {
-		Time dtetime.Time `json:"time"`
+		Time dte.Time `json:"time"`
 	}
 	testStruct := TestStruct{}
 	err := json.Unmarshal([]byte(`{"time":"15:04:05Z"}`), &testStruct)
@@ -34,12 +34,12 @@ func ExampleTime_json_to_struct() {
 
 func ExampleTime_struct_to_json() {
 	type TestStruct struct {
-		Time dtetime.Time `json:"time"`
+		Time dte.Time `json:"time"`
 	}
 
 	testStruct := TestStruct{}
 
-	parsed, err := dtetime.Parse("15:04:05Z")
+	parsed, err := dte.Parse("15:04:05Z")
 	if err != nil {
 		return
 	}
@@ -118,7 +118,7 @@ func TestParse(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			parsed, err := dtetime.Parse(tt.inputTime)
+			parsed, err := dte.Parse(tt.inputTime)
 			if (err != nil) && true == tt.wantError {
 				return
 			}
