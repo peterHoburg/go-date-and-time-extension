@@ -11,7 +11,7 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	"github.com/peterHoburg/go-date-and-time-extension/dte/dtegorm"
+	"github.com/peterHoburg/go-date-and-time-extension/dtegorm"
 )
 
 type Example struct {
