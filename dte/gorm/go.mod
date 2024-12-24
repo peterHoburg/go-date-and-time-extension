@@ -1,4 +1,4 @@
-module dtegorm
+module github.com/peterHoburg/go-date-and-time-extension/gorm
 
 go 1.23.4
 
