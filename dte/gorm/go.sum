@@ -1,0 +1,14 @@
+github.com/jinzhu/inflection v1.0.0 h1:K317FqzuhWc8YvSVlFMCCUb36O/S9MCKRDI7QkRKD/E=
+github.com/jinzhu/inflection v1.0.0/go.mod h1:h+uFLlag+Qp1Va5pdKtLDYj+kHp5pxUVkryuEj+Srlc=
+github.com/jinzhu/now v1.1.5 h1:/o9tlHleP7gOFmsnYNz3RGnqzefHA47wQpKrrdTIwXQ=
+github.com/jinzhu/now v1.1.5/go.mod h1:d3SSVoowX0Lcu0IBviAWJpolVfI5UJVZZ7cO71lE/z8=
+github.com/peterHoburg/go-date-and-time-extension v0.0.0-20241224164307-658791d53516 h1:QLMSiOKrUXlwmbGFzO9c+oUZ2Jor/pNDTvE0UDis1yo=
+github.com/peterHoburg/go-date-and-time-extension v0.0.0-20241224164307-658791d53516/go.mod h1:0GwBx6o8Tmaj+9lvnP6CH66HLR37xnHr/vEoC3MRd3I=
+github.com/peterHoburg/go-date-and-time-extension v0.0.1 h1:XaWsR63mQiiBXgj1B1FD6g6oTEEdCfhKfN4MvKiXDIo=
+github.com/peterHoburg/go-date-and-time-extension v0.0.1/go.mod h1:0GwBx6o8Tmaj+9lvnP6CH66HLR37xnHr/vEoC3MRd3I=
+golang.org/x/text v0.14.0 h1:ScX5w1eTa3QqT8oi6+ziP7dTV1S2+ALU0bI+0zXKWiQ=
+golang.org/x/text v0.14.0/go.mod h1:18ZOQIKpY8NJVqYksKHtTdi31H5itFRjB5/qKTNYzSU=
+golang.org/x/text v0.21.0 h1:zyQAAkrwaneQ066sspRyJaG9VNi/YJ1NfzcGB3hZ/qo=
+golang.org/x/text v0.21.0/go.mod h1:4IBbMaMmOPCJ8SecivzSH54+73PCFmPWxNTLm+vZkEQ=
+gorm.io/gorm v1.25.12 h1:I0u8i2hWQItBq1WfE0o2+WuL9+8L21K9e2HHSTE/0f8=
+gorm.io/gorm v1.25.12/go.mod h1:xh7N7RHfYlNc5EmcI/El95gXusucDrQnHXe0+CgWcLQ=
