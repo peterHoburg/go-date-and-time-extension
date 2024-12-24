@@ -14,14 +14,37 @@ type Time struct {
 	time.Time
 }
 
-func Parse(s string) (Time, error) {
+func NewTime(s string) (Time, error) {
+	timeInstance := Time{}
+
+	err := timeInstance.SetFromString(s)
+	if err != nil {
+		return Time{}, err
+	}
+	return timeInstance, nil
+}
+
+func (t *Time) SetFromString(s string) error {
 	parsedTime, err := time.Parse(TimeOnlyWithTimezone, s)
 	if err != nil {
-		return Time{}, fmt.Errorf("%w: %w", ErrTimeParse, err)
+		return fmt.Errorf("%w: %w", ErrTimeParse, err)
 	}
-	parsedTime = parsedTime.UTC()
 
-	return Time{Time: parsedTime}, nil
+	parsedTime = parsedTime.UTC()
+	*t = Time{parsedTime}
+
+	return nil
+}
+
+func (t *Time) SetFromTime(inputTime time.Time) error {
+	timeSting := inputTime.Format(TimeOnlyWithTimezone)
+
+	err := t.SetFromString(timeSting)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (t Time) String() string {
@@ -62,14 +85,14 @@ func (t *Time) UnmarshalJSON(data []byte) error {
 
 		data = data[len(`"`) : len(data)-len(`"`)]
 
-		parsedTime, err = Parse(string(data))
+		parsedTime, err = NewTime(string(data))
 		if err != nil {
 			return err
 		}
 
 	} else {
 
-		parsedTime, err = Parse(tempTime.Format(TimeOnlyWithTimezone))
+		parsedTime, err = NewTime(tempTime.Format(TimeOnlyWithTimezone))
 		if err != nil {
 			return fmt.Errorf("failed to format unmarshaled time: %w", err)
 		}
