@@ -4,7 +4,7 @@ go 1.23.4
 
 require (
 	github.com/google/uuid v1.6.0
-	github.com/peterHoburg/go-date-and-time-extension v0.0.2
+	github.com/peterHoburg/go-date-and-time-extension v0.0.3
 	gorm.io/driver/postgres v1.5.11
 	gorm.io/gorm v1.25.12
 )

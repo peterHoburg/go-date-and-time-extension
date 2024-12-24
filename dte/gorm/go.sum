@@ -19,6 +19,8 @@ github.com/peterHoburg/go-date-and-time-extension v0.0.1 h1:XaWsR63mQiiBXgj1B1FD
 github.com/peterHoburg/go-date-and-time-extension v0.0.1/go.mod h1:0GwBx6o8Tmaj+9lvnP6CH66HLR37xnHr/vEoC3MRd3I=
 github.com/peterHoburg/go-date-and-time-extension v0.0.2 h1:WoD6W7+moBx/RPxJMGdt6Gzo70shTJKn0DC8KuRcKv0=
 github.com/peterHoburg/go-date-and-time-extension v0.0.2/go.mod h1:0GwBx6o8Tmaj+9lvnP6CH66HLR37xnHr/vEoC3MRd3I=
+github.com/peterHoburg/go-date-and-time-extension v0.0.3 h1:fCGYhvUIV65Vta3fGbuk4q2J/8vJ3VGThPLkEE3x1Nk=
+github.com/peterHoburg/go-date-and-time-extension v0.0.3/go.mod h1:0GwBx6o8Tmaj+9lvnP6CH66HLR37xnHr/vEoC3MRd3I=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
