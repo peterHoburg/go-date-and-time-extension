@@ -102,6 +102,12 @@ func TestParse(t *testing.T) {
 			wantError: false,
 		},
 		{
+			name:      "valid time with space -5",
+			inputTime: "10:04:05 -05:00",
+			want:      `"15:04:05Z"`,
+			wantError: false,
+		},
+		{
 			name:      "valid time +5",
 			inputTime: "20:04:05+05:00",
 			want:      `"15:04:05Z"`,
