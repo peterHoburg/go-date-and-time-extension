@@ -47,7 +47,6 @@ func ExampleTime_struct_to_json() {
 
 	testStruct.Time = parsed
 	marshaled, err := json.Marshal(testStruct)
-
 	if err != nil {
 		return
 	}

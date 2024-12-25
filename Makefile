@@ -10,10 +10,17 @@ test: down
 build:
 	cd dte
 	go build -v ./...
+
 	cd ../dtegorm
 	go build -v ./...
 
 lint:
+	cd dte
+	go vet
+	go fmt
+	golangci-lint run --fix ./...
+
+	cd ../dtegorm
 	go vet
 	go fmt
 	golangci-lint run --fix ./...

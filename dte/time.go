@@ -86,8 +86,7 @@ func (t Time) MarshalJSON() ([]byte, error) {
 // The time must be a quoted string in the RFC 3339 format or hh:mm:ss.
 func (t *Time) UnmarshalJSON(data []byte) error {
 	tempTime := time.Time{}
-	parsedTime := Time{}
-
+	var parsedTime Time
 	err := tempTime.UnmarshalJSON(data)
 	if err != nil {
 
