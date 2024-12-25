@@ -46,7 +46,7 @@ func (Time) GormDBDataType(db *gorm.DB, field *schema.Field) string {
 	}
 }
 
-// Scan implements sql.Scanner interface and scans value into Time,
+// Scan implements sql.Scanner interface and scans value into Time,.
 func (t *Time) Scan(src interface{}) error {
 	switch v := src.(type) {
 	case []byte:

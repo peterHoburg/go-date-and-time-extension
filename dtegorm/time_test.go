@@ -49,7 +49,7 @@ func Open(dsn string, db *gorm.DB) *gorm.DB {
 
 		retry++
 
-		time.Sleep(3 * time.Second) //nolint:mnd
+		time.Sleep(3 * time.Second)
 	}
 
 	if err != nil {
@@ -62,7 +62,6 @@ func Open(dsn string, db *gorm.DB) *gorm.DB {
 
 	db = localDB.Debug()
 	return db
-
 }
 
 func CreateDB(dbName string, db *gorm.DB) {
@@ -84,7 +83,6 @@ func RunMigrations(db *gorm.DB) {
 	if err != nil {
 		log.Fatal("Error migrating database")
 	}
-
 }
 
 func Setup() (string, string, *gorm.DB) {

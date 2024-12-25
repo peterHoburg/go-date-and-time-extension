@@ -8,18 +8,20 @@ import (
 
 var ErrTimeParse = errors.New("time does not follow 15:04:05 time only format")
 
-const TimeOnlyWithTimezone = "15:04:05Z07:00"
-const TimeOnlyWithTimezoneWithSpace = "15:04:05 Z07:00"
-const TimeOnlyWithTimezoneShort = "15:04:05Z07"
+const (
+	TimeOnlyWithTimezone          = "15:04:05Z07:00"
+	TimeOnlyWithTimezoneWithSpace = "15:04:05 Z07:00"
+	TimeOnlyWithTimezoneShort     = "15:04:05Z07"
+)
 
-var acceptableFormats = []string{
+var acceptableFormats = []string{ //nolint:gochecknoglobals
 	TimeOnlyWithTimezone,
 	TimeOnlyWithTimezoneWithSpace,
 	TimeOnlyWithTimezoneShort,
 }
 
-type Time struct {
-	time.Time
+type Time struct { //nolint:recvcheck
+	time.Time `json:"time_._time"`
 }
 
 func NewTime(s string) (Time, error) {
@@ -29,12 +31,13 @@ func NewTime(s string) (Time, error) {
 	if err != nil {
 		return Time{}, err
 	}
+
 	return timeInstance, nil
 }
 
 func (t *Time) SetFromString(s string) error {
-
 	var err error
+
 	parsedTime := time.Time{}
 
 	for _, layout := range acceptableFormats {
@@ -42,6 +45,7 @@ func (t *Time) SetFromString(s string) error {
 			break
 		}
 	}
+
 	if err != nil {
 		return fmt.Errorf("%w: %w", ErrTimeParse, err)
 	}
@@ -68,7 +72,7 @@ func (t Time) String() string {
 }
 
 // MarshalJSON implements the [json.Marshaler] interface.
-// The time is a quoted string in the hh:mm:ss format
+// The time is a quoted string in the hh:mm:ss format.
 func (t Time) MarshalJSON() ([]byte, error) {
 	b := make([]byte, 0, len(TimeOnlyWithTimezone)+len(`""`))
 
@@ -89,7 +93,6 @@ func (t *Time) UnmarshalJSON(data []byte) error {
 	var parsedTime Time
 	err := tempTime.UnmarshalJSON(data)
 	if err != nil {
-
 		if string(data) == "null" {
 			return nil
 		}
@@ -104,14 +107,11 @@ func (t *Time) UnmarshalJSON(data []byte) error {
 		if err != nil {
 			return err
 		}
-
 	} else {
-
 		parsedTime, err = NewTime(tempTime.Format(TimeOnlyWithTimezone))
 		if err != nil {
 			return fmt.Errorf("failed to format unmarshaled time: %w", err)
 		}
-
 	}
 
 	*t = parsedTime
