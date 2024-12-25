@@ -108,7 +108,7 @@ func Teardown(dbName string, dsn string, db *gorm.DB) {
 	DeleteDB(dbName, db)
 }
 
-func ExampleTimeGORM() {
+func ExampleTime() {
 	dbName, dsn, db := Setup()
 	dsn = strings.ReplaceAll(dsn, "dbname="+dbName, "dbname=postgres")
 	defer Teardown(dbName, dsn, db)
@@ -142,7 +142,7 @@ func ExampleTimeGORM() {
 	// Output: 15:04:05Z
 }
 
-func TestTimeGORM(t *testing.T) {
+func TestTime(t *testing.T) {
 	dbName, dsn, db := Setup()
 	dsn = strings.ReplaceAll(dsn, "dbname="+dbName, "dbname=postgres")
 	defer Teardown(dbName, dsn, db)
