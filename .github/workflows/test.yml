@@ -1,6 +1,8 @@
 name: Test
 
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
     types: [ opened, synchronize, reopened]
   merge_group:
@@ -22,6 +24,11 @@ jobs:
 
       - name: Run tests
         run: make test
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   lint:
     runs-on: ubuntu-latest

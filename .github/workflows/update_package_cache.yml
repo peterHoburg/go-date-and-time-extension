@@ -2,7 +2,7 @@ name: Update Package Cache
 
 on:
   release:
-    types: [published]
+    types: [published, created]
 
 jobs:
   cache_release:
