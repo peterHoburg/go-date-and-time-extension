@@ -14,6 +14,7 @@ func ExampleParse() {
 	if err != nil {
 		return
 	}
+
 	fmt.Println(dteTime)
 
 	// Output: 15:04:05Z
@@ -23,11 +24,14 @@ func ExampleTime_json_to_struct() {
 	type TestStruct struct {
 		Time dte.Time `json:"time"`
 	}
+
 	testStruct := TestStruct{}
+
 	err := json.Unmarshal([]byte(`{"time":"15:04:05Z"}`), &testStruct)
 	if err != nil {
 		return
 	}
+
 	fmt.Println(testStruct.Time)
 
 	// Output: 15:04:05Z
@@ -46,15 +50,18 @@ func ExampleTime_struct_to_json() {
 	}
 
 	testStruct.Time = parsed
+
 	marshaled, err := json.Marshal(testStruct)
 	if err != nil {
 		return
 	}
+
 	fmt.Println(string(marshaled))
 
 	// Output: {"time":"15:04:05Z"}
 }
 
+//nolint:funlen
 func TestParse(t *testing.T) {
 	t.Parallel()
 
@@ -134,13 +141,17 @@ func TestParse(t *testing.T) {
 			if (err != nil) && true == tt.wantError {
 				return
 			}
+
 			if err != nil {
 				t.Errorf("Parse() error = %v, wantError %v", err, tt.wantError)
+
 				return
 			}
+
 			got, err := json.Marshal(parsed)
 			if err != nil {
 				t.Errorf("MarshalJSON() error = %v, wantError %v", err, tt.wantError)
+
 				return
 			}
 
@@ -151,6 +162,7 @@ func TestParse(t *testing.T) {
 	}
 }
 
+//nolint:funlen
 func TestSetFromTime(t *testing.T) {
 	t.Parallel()
 
@@ -197,15 +209,18 @@ func TestSetFromTime(t *testing.T) {
 			t.Parallel()
 
 			var dteTime dte.Time
+
 			err := dteTime.SetFromTime(tt.inputTime)
 			if (err != nil) != tt.wantError {
 				t.Errorf("SetFromTime() error = %v, wantError %v", err, tt.wantError)
+
 				return
 			}
 
 			got, err := json.Marshal(dteTime)
 			if err != nil {
 				t.Errorf("MarshalJSON() error = %v", err)
+
 				return
 			}
 

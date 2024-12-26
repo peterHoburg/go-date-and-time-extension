@@ -21,7 +21,7 @@ var acceptableFormats = []string{ //nolint:gochecknoglobals
 }
 
 type Time struct { //nolint:recvcheck
-	time.Time `json:"time_._time"`
+	time.Time
 }
 
 func NewTime(s string) (Time, error) {
@@ -90,15 +90,17 @@ func (t Time) MarshalJSON() ([]byte, error) {
 // The time must be a quoted string in the RFC 3339 format or hh:mm:ss.
 func (t *Time) UnmarshalJSON(data []byte) error {
 	tempTime := time.Time{}
+
 	var parsedTime Time
+
 	err := tempTime.UnmarshalJSON(data)
-	if err != nil {
+	if err != nil { //nolint:nestif
 		if string(data) == "null" {
 			return nil
 		}
 
 		if len(data) < 2 || data[0] != '"' || data[len(data)-1] != '"' {
-			return errors.New("Time.UnmarshalJSON: input is not a JSON string")
+			return fmt.Errorf("Time.UnmarshalJSON: input is not a JSON string: %w", err)
 		}
 
 		data = data[len(`"`) : len(data)-len(`"`)]
@@ -115,5 +117,6 @@ func (t *Time) UnmarshalJSON(data []byte) error {
 	}
 
 	*t = parsedTime
+
 	return nil
 }

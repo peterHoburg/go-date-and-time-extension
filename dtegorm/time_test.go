@@ -30,11 +30,10 @@ func Open(dsn string, db *gorm.DB) *gorm.DB {
 		if err != nil {
 			log.Fatal("Error closing DB")
 		}
-
-		db = nil
 	}
 
 	var err error
+
 	var localDB *gorm.DB
 
 	retries := 3
@@ -61,6 +60,7 @@ func Open(dsn string, db *gorm.DB) *gorm.DB {
 	}
 
 	db = localDB.Debug()
+
 	return db
 }
 
@@ -87,6 +87,7 @@ func RunMigrations(db *gorm.DB) {
 
 func Setup() (string, string, *gorm.DB) {
 	const DSN = "host=localhost user=postgres password=postgres dbname=postgres port=5432 sslmode=disable TimeZone=GMT"
+
 	var db *gorm.DB
 
 	db = Open(DSN, db)
@@ -135,12 +136,15 @@ func ExampleTime() {
 	if getResult.Error != nil {
 		return
 	}
+
 	fmt.Println(exampleResult.OnlyTime.String())
 
 	// Output: 15:04:05Z
 }
 
 func TestTime(t *testing.T) {
+	t.Parallel()
+
 	dbName, dsn, db := Setup()
 	dsn = strings.ReplaceAll(dsn, "dbname="+dbName, "dbname=postgres")
 	defer Teardown(dbName, dsn, db)
@@ -149,9 +153,15 @@ func TestTime(t *testing.T) {
 		ColumnName string
 		DataType   string
 	}
+
 	result := Result{}
 
-	db.Raw("SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'examples' AND column_name = 'only_time'").Scan(&result)
+	db.Raw(
+		"SELECT column_name, data_type " +
+			"FROM information_schema.columns " +
+			"WHERE table_name = 'examples' AND column_name = 'only_time'",
+	).Scan(&result)
+
 	if result.ColumnName != "only_time" && result.DataType != "time with time zone" {
 		t.Errorf("Column name or data type is not correct")
 	}
@@ -162,10 +172,12 @@ func TestTime(t *testing.T) {
 	}
 
 	example := Example{OnlyTime: onlyTime}
+
 	dbResult := db.Create(&example)
 	if dbResult.Error != nil {
 		t.Errorf("Error creating example")
 	}
+
 	var exampleResult Example
 
 	dbResult = db.First(&exampleResult, example.ID)

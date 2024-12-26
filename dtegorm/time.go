@@ -11,7 +11,13 @@ import (
 	"gorm.io/gorm/schema"
 )
 
-type Time struct {
+var (
+	ErrNewTime             = errors.New("failed to create new time")
+	ErrTimeScan            = errors.New("failed to scan value into time struct")
+	ErrTimeScanInvalidType = errors.New("invalid type passed to scan")
+)
+
+type Time struct { //nolint:recvcheck
 	dte.Time
 }
 
@@ -20,8 +26,9 @@ func NewTime(s string) (Time, error) {
 
 	err := timeInstance.SetFromString(s)
 	if err != nil {
-		return Time{}, err
+		return Time{}, fmt.Errorf("%w: %w", ErrNewTime, err)
 	}
+
 	return timeInstance, nil
 }
 
@@ -31,7 +38,7 @@ func (Time) GormDataType() string {
 }
 
 // GormDBDataType returns gorm DB data type based on the current using database.
-func (Time) GormDBDataType(db *gorm.DB, field *schema.Field) string {
+func (Time) GormDBDataType(db *gorm.DB, _ *schema.Field) string {
 	switch db.Dialector.Name() {
 	case "mysql":
 		return "TIME"
@@ -52,20 +59,20 @@ func (t *Time) Scan(src interface{}) error {
 	case []byte:
 		err := t.SetFromString(string(v))
 		if err != nil {
-			return err
+			return fmt.Errorf("%w: %w", ErrTimeScan, err)
 		}
 	case string:
 		err := t.SetFromString(v)
 		if err != nil {
-			return err
+			return fmt.Errorf("%w: %w", ErrTimeScan, err)
 		}
 	case time.Time:
 		err := t.SetFromTime(v)
 		if err != nil {
-			return err
+			return fmt.Errorf("%w: %w", ErrTimeScan, err)
 		}
 	default:
-		return errors.New(fmt.Sprintf("failed to scan value: %v", v))
+		return ErrTimeScanInvalidType
 	}
 
 	return nil
