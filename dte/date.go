@@ -14,6 +14,7 @@ const (
 
 var dateAcceptableFormats = []string{ //nolint:gochecknoglobals
 	DateOnly,
+	time.RFC3339,
 }
 
 type Date struct { //nolint:recvcheck
@@ -46,7 +47,6 @@ func (d *Date) SetFromString(s string) error {
 		return fmt.Errorf("%w: %w", ErrDateParse, err)
 	}
 
-	parsedTime = parsedTime.UTC()
 	*d = Date{parsedTime}
 
 	return nil
