@@ -9,7 +9,7 @@ import (
 	"github.com/peterHoburg/go-date-and-time-extension/dte"
 )
 
-func ExampleParse() {
+func ExampleNewTime() {
 	dteTime, err := dte.NewTime("15:04:05Z")
 	if err != nil {
 		return

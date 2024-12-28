@@ -14,7 +14,7 @@ const (
 	TimeOnlyWithTimezoneShort     = "15:04:05Z07"
 )
 
-var acceptableFormats = []string{ //nolint:gochecknoglobals
+var timeAcceptableFormats = []string{ //nolint:gochecknoglobals
 	TimeOnlyWithTimezone,
 	TimeOnlyWithTimezoneWithSpace,
 	TimeOnlyWithTimezoneShort,
@@ -40,7 +40,7 @@ func (t *Time) SetFromString(s string) error {
 
 	parsedTime := time.Time{}
 
-	for _, layout := range acceptableFormats {
+	for _, layout := range timeAcceptableFormats {
 		if parsedTime, err = time.Parse(layout, s); err == nil {
 			break
 		}
