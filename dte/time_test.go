@@ -230,3 +230,80 @@ func TestSetFromTime(t *testing.T) {
 		})
 	}
 }
+
+func TestUnmarshalJSON(t *testing.T) {
+	t.Parallel()
+
+	type TestStruct struct {
+		Time dte.Time `json:"time"`
+	}
+
+	tests := []struct {
+		name      string
+		inputJSON string
+		want      dte.Time
+		wantErr   bool
+	}{
+		{
+			name:      "valid time",
+			inputJSON: "{\n\t\"time\": \"15:04:05Z\"\n}",
+			want:      func() dte.Time { t, _ := dte.NewTime("15:04:05Z"); return t }(),
+			wantErr:   false,
+		},
+		{
+			name:      "null time",
+			inputJSON: "{\n\t\"time\": \"null\"\n}",
+			want:      func() dte.Time { t, _ := dte.NewTime("null"); return t }(),
+			wantErr:   false,
+		},
+		{
+			name:      "int",
+			inputJSON: "{\n\t\"time\": 1\n}",
+			want:      func() dte.Time { t, _ := dte.NewTime("15:04:05Z"); return t }(),
+			wantErr:   true,
+		},
+		{
+			name:      "invalid json time",
+			inputJSON: "{\n\t\"time\": 15:04:05Z\n}",
+			want:      func() dte.Time { t, _ := dte.NewTime("15:04:05Z"); return t }(),
+			wantErr:   true,
+		},
+		{
+			name:      "Full timestamp",
+			inputJSON: "{\n\t\"time\": \"2006-01-02T15:04:05Z\"\n}",
+			want:      func() dte.Time { t, _ := dte.NewTime("15:04:05Z"); return t }(),
+			wantErr:   false,
+		},
+		{
+			name:      "Full timestamp with TZ",
+			inputJSON: "{\n\t\"time\": \"2006-01-02T10:04:05-05:00\"\n}",
+			want:      func() dte.Time { t, _ := dte.NewTime("15:04:05Z"); return t }(),
+			wantErr:   false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			var testStruct TestStruct
+
+			err := json.Unmarshal([]byte(tt.inputJSON), &testStruct)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("UnmarshalJSON() error = %v, wantErr %v", err, tt.wantErr)
+
+				return
+			}
+			if err != nil {
+				return
+			}
+
+			if testStruct.Time != tt.want {
+				t.Errorf("UnmarshalJSON() = %v, want %v", testStruct.Time, tt.want)
+
+				return
+			}
+		})
+	}
+
+}

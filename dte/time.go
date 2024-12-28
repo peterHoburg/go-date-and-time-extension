@@ -95,7 +95,7 @@ func (t *Time) UnmarshalJSON(data []byte) error {
 
 	err := tempTime.UnmarshalJSON(data)
 	if err != nil { //nolint:nestif
-		if string(data) == "null" {
+		if string(data) == "null" || string(data) == "\"null\"" {
 			return nil
 		}
 
