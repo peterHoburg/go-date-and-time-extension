@@ -231,6 +231,7 @@ func TestSetFromTime(t *testing.T) {
 	}
 }
 
+//nolint:funlen
 func TestUnmarshalJSON(t *testing.T) {
 	t.Parallel()
 
@@ -247,37 +248,39 @@ func TestUnmarshalJSON(t *testing.T) {
 		{
 			name:      "valid time",
 			inputJSON: "{\n\t\"time\": \"15:04:05Z\"\n}",
-			want:      func() dte.Time { t, _ := dte.NewTime("15:04:05Z"); return t }(),
-			wantErr:   false,
+
+			want:    func() dte.Time { t, _ := dte.NewTime("15:04:05Z"); return t }(), //nolint:nlreturn
+			wantErr: false,
 		},
 		{
 			name:      "null time",
 			inputJSON: "{\n\t\"time\": \"null\"\n}",
-			want:      func() dte.Time { t, _ := dte.NewTime("null"); return t }(),
-			wantErr:   false,
+
+			want:    func() dte.Time { t, _ := dte.NewTime("null"); return t }(), //nolint:nlreturn
+			wantErr: false,
 		},
 		{
 			name:      "int",
 			inputJSON: "{\n\t\"time\": 1\n}",
-			want:      func() dte.Time { t, _ := dte.NewTime("15:04:05Z"); return t }(),
+			want:      func() dte.Time { t, _ := dte.NewTime("15:04:05Z"); return t }(), //nolint:nlreturn
 			wantErr:   true,
 		},
 		{
 			name:      "invalid json time",
 			inputJSON: "{\n\t\"time\": 15:04:05Z\n}",
-			want:      func() dte.Time { t, _ := dte.NewTime("15:04:05Z"); return t }(),
+			want:      func() dte.Time { t, _ := dte.NewTime("15:04:05Z"); return t }(), //nolint:nlreturn
 			wantErr:   true,
 		},
 		{
 			name:      "Full timestamp",
 			inputJSON: "{\n\t\"time\": \"2006-01-02T15:04:05Z\"\n}",
-			want:      func() dte.Time { t, _ := dte.NewTime("15:04:05Z"); return t }(),
+			want:      func() dte.Time { t, _ := dte.NewTime("15:04:05Z"); return t }(), //nolint:nlreturn
 			wantErr:   false,
 		},
 		{
 			name:      "Full timestamp with TZ",
 			inputJSON: "{\n\t\"time\": \"2006-01-02T10:04:05-05:00\"\n}",
-			want:      func() dte.Time { t, _ := dte.NewTime("15:04:05Z"); return t }(),
+			want:      func() dte.Time { t, _ := dte.NewTime("15:04:05Z"); return t }(), //nolint:nlreturn
 			wantErr:   false,
 		},
 	}
@@ -294,6 +297,7 @@ func TestUnmarshalJSON(t *testing.T) {
 
 				return
 			}
+
 			if err != nil {
 				return
 			}
@@ -305,5 +309,4 @@ func TestUnmarshalJSON(t *testing.T) {
 			}
 		})
 	}
-
 }
