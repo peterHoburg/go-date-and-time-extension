@@ -18,7 +18,7 @@ var (
 )
 
 type Time struct { //nolint:recvcheck
-	dte.Time `example:"15:04:05Z"`
+	dte.Time `example:"15:04:05Z" format:"time"`
 }
 
 func NewTime(s string) (Time, error) {

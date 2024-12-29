@@ -21,7 +21,7 @@ var timeAcceptableFormats = []string{ //nolint:gochecknoglobals
 }
 
 type Time struct { //nolint:recvcheck
-	time.Time `example:"15:04:05Z"`
+	time.Time `example:"15:04:05Z" format:"time"`
 }
 
 func NewTime(s string) (Time, error) {

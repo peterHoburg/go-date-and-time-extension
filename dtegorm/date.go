@@ -18,7 +18,7 @@ var (
 )
 
 type Date struct { //nolint:recvcheck
-	dte.Date `example:"2006-01-02"`
+	dte.Date `example:"2006-01-02" format:"date"`
 }
 
 func NewDate(s string) (Date, error) {
