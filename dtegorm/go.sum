@@ -21,6 +21,8 @@ github.com/peterHoburg/go-date-and-time-extension/dte v0.0.10 h1:qlz+O1D9T6soL+n
 github.com/peterHoburg/go-date-and-time-extension/dte v0.0.10/go.mod h1:dkPW+r0kEZxiQ2x1rypaUwU3B4BTXWut5Ns4BdDepow=
 github.com/peterHoburg/go-date-and-time-extension/dte v0.0.11 h1:T1EMvnCD/7iORxlunJhIYsvm9lZZfQuEwc9BhNybTb8=
 github.com/peterHoburg/go-date-and-time-extension/dte v0.0.11/go.mod h1:dkPW+r0kEZxiQ2x1rypaUwU3B4BTXWut5Ns4BdDepow=
+github.com/peterHoburg/go-date-and-time-extension/dte v0.1.2 h1:n2oZAWiLsF5m0NopPh3Z7g6xwERgFPd4uD6FYTBtt5Y=
+github.com/peterHoburg/go-date-and-time-extension/dte v0.1.2/go.mod h1:dkPW+r0kEZxiQ2x1rypaUwU3B4BTXWut5Ns4BdDepow=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
