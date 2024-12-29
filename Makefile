@@ -28,3 +28,13 @@ lint:
 down:
 	docker compose down --remove-orphans
 
+tag:
+	@if [ -z "$(TAG)" ]; then echo "TAG variable is required."; exit 1; fi
+	git tag $(TAG)
+	git push origin $(TAG)
+
+	git tag dte/$(TAG)
+	git push origin dte/$(TAG)
+
+	git tag dtegorm/$(TAG)
+	git push origin dtegorm/$(TAG)
