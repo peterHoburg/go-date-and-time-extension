@@ -19,6 +19,11 @@ func ExampleTime() {
 	defer Teardown(dbName, dsn, db)
 	// ^^^ Setup for the PG DB. This can be ignored
 
+	type TimeExample struct {
+		ID       uint `gorm:"primarykey"`
+		OnlyTime dtegorm.Time
+	}
+
 	onlyTime, err := dtegorm.NewTime("10:04:05-05:00")
 	if err != nil {
 		return
