@@ -232,7 +232,7 @@ func TestTimeSetFromTime(t *testing.T) {
 }
 
 //nolint:funlen
-func TestTimeUnmarshalJSON(t *testing.T) {
+func TestTimeUnmarshalJSON(t *testing.T) { //nolint:dupl
 	t.Parallel()
 
 	type TestStruct struct {

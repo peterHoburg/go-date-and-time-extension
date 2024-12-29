@@ -8,42 +8,42 @@ import (
 	"github.com/peterHoburg/go-date-and-time-extension/dtegorm"
 )
 
-type TimeExample struct {
+type DateExample struct {
 	ID       uint `gorm:"primarykey"`
-	OnlyTime dtegorm.Time
+	OnlyDate dtegorm.Date
 }
 
-func ExampleTime() {
+func ExampleDate() {
 	dbName, dsn, db := Setup()
 	dsn = strings.ReplaceAll(dsn, "dbname="+dbName, "dbname=postgres")
 	defer Teardown(dbName, dsn, db)
 	// ^^^ Setup for the PG DB. This can be ignored
 
-	onlyTime, err := dtegorm.NewTime("10:04:05-05:00")
+	onlyDate, err := dtegorm.NewDate("2006-01-02")
 	if err != nil {
 		return
 	}
 
-	example := TimeExample{OnlyTime: onlyTime}
+	example := DateExample{OnlyDate: onlyDate}
 
 	createResult := db.Create(&example)
 	if createResult.Error != nil {
 		return
 	}
 
-	var exampleResult TimeExample
+	var exampleResult DateExample
 
 	getResult := db.First(&exampleResult, example.ID)
 	if getResult.Error != nil {
 		return
 	}
 
-	fmt.Println(exampleResult.OnlyTime.String())
+	fmt.Println(exampleResult.OnlyDate.String())
 
-	// Output: 15:04:05Z
+	// Output: 2006-01-02
 }
 
-func TestTime(t *testing.T) {
+func TestDate(t *testing.T) {
 	t.Parallel()
 
 	dbName, dsn, db := Setup()
@@ -60,33 +60,33 @@ func TestTime(t *testing.T) {
 	db.Raw(
 		"SELECT column_name, data_type " +
 			"FROM information_schema.columns " +
-			"WHERE table_name = 'time_examples' AND column_name = 'only_time'",
+			"WHERE table_name = 'date_examples' AND column_name = 'only_date'",
 	).Scan(&result)
 
-	if result.ColumnName != "only_time" && result.DataType != "time with time zone" {
+	if result.ColumnName != "only_date" && result.DataType != "date" {
 		t.Errorf("Column name or data type is not correct")
 	}
 
-	onlyTime, err := dtegorm.NewTime("10:04:05-05:00")
+	onlyDate, err := dtegorm.NewDate("2006-01-02T15:04:05Z")
 	if err != nil {
-		t.Errorf("Error creating time")
+		t.Errorf("Error creating date")
 	}
 
-	example := TimeExample{OnlyTime: onlyTime}
+	example := DateExample{OnlyDate: onlyDate}
 
 	dbResult := db.Create(&example)
 	if dbResult.Error != nil {
 		t.Errorf("Error creating example")
 	}
 
-	var exampleResult TimeExample
+	var exampleResult DateExample
 
 	dbResult = db.First(&exampleResult, example.ID)
 	if dbResult.Error != nil {
 		t.Errorf("Error getting user")
 	}
 
-	if exampleResult.OnlyTime.String() != "15:04:05Z" {
-		t.Errorf("Time is not correct")
+	if exampleResult.OnlyDate.String() != "2006-01-02" {
+		t.Errorf("Date is not correct, %s, %s", exampleResult.OnlyDate.String(), "2006-01-02")
 	}
 }
