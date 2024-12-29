@@ -18,7 +18,7 @@ var dateAcceptableFormats = []string{ //nolint:gochecknoglobals
 }
 
 type Date struct { //nolint:recvcheck
-	time.Time
+	time.Time `example:"2006-01-02"`
 }
 
 func NewDate(s string) (Date, error) {
