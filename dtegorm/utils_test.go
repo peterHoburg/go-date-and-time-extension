@@ -70,7 +70,7 @@ func DeleteDB(dbName string, db *gorm.DB) {
 }
 
 func RunMigrations(db *gorm.DB) {
-	err := db.AutoMigrate(&TimeExample{})
+	err := db.AutoMigrate(&TimeExample{}, &DateExample{})
 	if err != nil {
 		log.Fatal("Error migrating database")
 	}
