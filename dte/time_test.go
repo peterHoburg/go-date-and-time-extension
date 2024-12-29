@@ -9,7 +9,7 @@ import (
 	"github.com/peterHoburg/go-date-and-time-extension/dte"
 )
 
-func ExampleParse() {
+func ExampleNewTime() {
 	dteTime, err := dte.NewTime("15:04:05Z")
 	if err != nil {
 		return
@@ -62,7 +62,7 @@ func ExampleTime_struct_to_json() {
 }
 
 //nolint:funlen
-func TestParse(t *testing.T) {
+func TestTimeNewTime(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
@@ -163,7 +163,7 @@ func TestParse(t *testing.T) {
 }
 
 //nolint:funlen
-func TestSetFromTime(t *testing.T) {
+func TestTimeSetFromTime(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
@@ -232,7 +232,7 @@ func TestSetFromTime(t *testing.T) {
 }
 
 //nolint:funlen
-func TestUnmarshalJSON(t *testing.T) {
+func TestTimeUnmarshalJSON(t *testing.T) {
 	t.Parallel()
 
 	type TestStruct struct {
