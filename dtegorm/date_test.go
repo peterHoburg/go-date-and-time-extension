@@ -19,6 +19,11 @@ func ExampleDate() {
 	defer Teardown(dbName, dsn, db)
 	// ^^^ Setup for the PG DB. This can be ignored
 
+	type DateExample struct {
+		ID       uint `gorm:"primarykey"`
+		OnlyDate dtegorm.Date
+	}
+
 	onlyDate, err := dtegorm.NewDate("2006-01-02")
 	if err != nil {
 		return
