@@ -39,15 +39,17 @@ func (Date) GormDataType() string {
 
 // GormDBDataType returns gorm DB data type based on the current using database.
 func (Date) GormDBDataType(db *gorm.DB, _ *schema.Field) string {
+	const date = "DATE"
+
 	switch db.Dialector.Name() {
 	case "mysql":
-		return "DATE"
+		return date
 	case "postgres":
-		return "DATE"
+		return date
 	case "sqlserver":
-		return "DATE"
+		return date
 	case "sqlite":
-		return "DATE"
+		return date
 	default:
 		return ""
 	}

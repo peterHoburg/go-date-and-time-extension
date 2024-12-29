@@ -126,7 +126,6 @@ func TestDateNewDate(t *testing.T) {
 	}
 }
 
-//nolint:funlen
 func TestDateSetFromTime(t *testing.T) {
 	t.Parallel()
 
@@ -190,7 +189,7 @@ func TestDateSetFromTime(t *testing.T) {
 }
 
 //nolint:funlen
-func TestDateUnmarshalJSON(t *testing.T) {
+func TestDateUnmarshalJSON(t *testing.T) { //nolint:dupl
 	t.Parallel()
 
 	type TestStruct struct {
