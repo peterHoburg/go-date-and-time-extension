@@ -1,6 +1,6 @@
 module github.com/peterHoburg/go-date-and-time-extension/dtegorm
 
-go 1.23.4
+go 1.24.0
 
 require (
 	github.com/google/uuid v1.6.0
@@ -16,7 +16,7 @@ require (
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
-	golang.org/x/crypto v0.31.0 // indirect
-	golang.org/x/sync v0.10.0 // indirect
-	golang.org/x/text v0.21.0 // indirect
+	golang.org/x/crypto v0.45.0 // indirect
+	golang.org/x/sync v0.18.0 // indirect
+	golang.org/x/text v0.31.0 // indirect
 )
